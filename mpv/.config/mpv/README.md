@@ -1,75 +1,62 @@
-My configuration for mpv. Note that this is a setup used and written by a video encoder, so some stuff some users might prefer (like overlaid static noise or automatic debanding on every source) are either not included, commented out, or bound to a toggle. Feel free to modify this to your liking, including uncommenting or changing settings however you please.
+``mpv-install.bat`` <img src="https://rossy.github.io/mpv-install/mpv-document.png" align="right">
+===================
 
-By default FSRCNNX is used for upscaling. If you notice heavy frame drops, please comment the import and uncomment ravu-r3 instead.
+This script sets up file associations for [mpv][1] on Windows.
 
-YouTube-DL is not included. You can install it from its official repository. Link below.
+How to install
+--------------
 
-The included updater.bat is taken from [shinchiro's SourceForge build of mpv](https://sourceforge.net/projects/mpv-player-windows/files/). It does not update the mpv.conf, but instead mpv itself. I highly suggest updating as frequently as possible.
+1. Make sure you have the latest build of mpv. Official builds are here:
+   https://mpv.srsfckn.biz/
+2. Download the zip: https://github.com/rossy/mpv-install/archive/master.zip
+   <br>
+   **Note:** Make sure you use the above link. Don't use GitHub's "Raw" links
+   on the files themselves, since these have incorrect line-endings, which
+   cause the script to crash. (See [#7][2].)
+3. Copy the .bat files and the .ico to the same directory as mpv.exe
+4. Run ``mpv-install.bat`` as administrator. **Note:** For an unattended
+   install, use the ``/u`` switch.
+5. Use the _Default Programs_ and _AutoPlay_ control panels to make mpv the
+   default player
 
-## How to install the base setup
+What it does
+------------
 
-**Windows:**<br>
+- Creates file associations for several video and audio file types
+- Registers mpv with the _Default Programs_ control panel
+- Puts mpv in the "Open with" menu for all video and audio files
+- Registers mpv.exe so it can be used from the Run dialog and the Start Menu
+- Adds mpv as an AutoPlay handler for Blu-rays and DVDs
+- Works when reinstalled to a different folder than the one it was in
+  previously. (File associations created by the "Open with" menu have trouble
+  with this.)
 
-1) Create a new folder in `%appdata%` and call it mpv. <br>
-2) Dump the contents of this directory in there. <br>
-3) Change the paths as necessary in `mpv.conf`.<br>
-4) **OPTIONAL:** Run `updater.bat` as Administrator to update your mpv.
+What it doesn't do
+------------------
 
-**Linux:**<br>
-TBA
+- Add mpv to the ``%PATH%``
+- Enable thumbnails for all media types (use [Icaros][3] for this)
+- Allow multiple files to be selected and opened as a playlist. This is harder
+  than it sounds and it can't be done with a simple script. As a workaround,
+  you can create a shortcut to mpv.exe in the "Send to" menu.
 
+How to uninstall
+----------------
 
-## How to install VapourSynth and the filtering dependencies
+To remove all traces of this script from your computer, run
+``mpv-uninstall.bat`` as administrator.
 
-1) Install the [latest version of VapourSynth](https://github.com/vapoursynth/vapoursynth/releases).<br>
-1.5. Install the latest required version of [Python](https://www.python.org/downloads/), and make sure it's added to PATH.<br>
-2) Locate the following directories:<br>
- \* C:\Users\[your username]\AppData\Roaming\VapourSynth\plugins64<br>
- \* C:\Users\[your username]\AppData\Local\Programs\Python\Python39\Lib\site-packages<br>
-3) Check the .vpy scripts in the repo (in the `vs` directory) and follow the links to the listed dependencies.
-4) Download and move the required files to the relevant directories (Python modules go to the `site-packages` directory, everything else goes in the `plugins64` directory).
-5) Verify that the scripts are running as intended by cycling through the profiles and pressing the `~` key during playback. It should tell you if it failed, and if it did what the missing dependencies are.
+**Note:** This is not necessary if you want to reinstall mpv later (in a
+different folder, for example,) only if you want to remove it completely. To
+reinstall, just run ``mpv-install.bat`` again.
 
+Disclaimer
+----------
 
-## Dependencies
+Should work on Windows Vista and up, tested with Windows Vista, 7, 8.1 and 10.
+These scripts were written for personal use and released with the hope that
+they would be useful, but without any warranty.
 
-* [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases/tag/2021.10.10) (Rename it to "youtube-dl.exe")
-* [Gandhi Sans](https://www.fontsquirrel.com/fonts/gandhi-sans) and [Noto Sans](https://fonts.google.com/specimen/Noto+Sans)
-
-### *Optional VapourSynth scripts*
-
-* [VapourSynth](https://github.com/vapoursynth/vapoursynth/releases)
-* [awarpSharp2](https://github.com/dubhater/vapoursynth-awarpsharp2/releases/tag/v4)
-* [havsfunc](https://github.com/HomeOfVapourSynthEvolution/havsfunc/releases)
-* [lvsfunc](https://pypi.org/project/lvsfunc/)
-* [NNEDI3CL](https://github.com/HomeOfVapourSynthEvolution/VapourSynth-NNEDI3CL/releases)
-* [vs-placebo](https://github.com/Lypheo/vs-placebo/releases)
-* [vsutil](https://pypi.org/project/vsutil/)
-
-## Included shaders/scripts
-
-* [acompressor](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/acompressor.lua)
-* [autocrop](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autocrop.lua)
-* [autoload](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autoload.lua)
-* [auto-profiles](https://github.com/wiiaboo/mpv-scripts/blob/master/auto-profiles.lua)
-* [boss-key](https://github.com/detuur/mpv-scripts)
-* [playlistmanager](https://github.com/jonniek/mpv-playlistmanager)
-* [reload](https://github.com/4e6/mpv-reload)
-* [repl](https://github.com/rossy/mpv-repl)
-* [status-line](https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/status-line.lua)
-* [visualizer](https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua)<br><br>
-* [FSRCNNX](https://github.com/igv/FSRCNN-TensorFlow/releases)
-* [KrigBilateral](https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637)
-* [nnedi3]((https://github.com/bjin/mpv-prescalers))
-* [ravu-r3](https://github.com/bjin/mpv-prescalers)
-* [Static Noise Luma](https://pastebin.com/yacMe6EZ)
-
-### Other
-
-* [Shinchiro's mpv updater](https://sourceforge.net/projects/mpv-player-windows/files/)
-
-### *For additional shaders and scripts, check out the following sources*
-
-* [mpv shaders](https://github.com/mpv-player/mpv/wiki/User-Scripts#user-shaders)
-* [mpv scripts](https://github.com/mpv-player/mpv/wiki/User-Scripts#lua-scripts)
-* [VapourSynth scripts](https://github.com/LightArrowsEXE/Encoding-Projects/)
+[1]: https://mpv.io/
+[2]: https://github.com/rossy/mpv-install/issues/7
+[3]: http://www.majorgeeks.com/files/details/icaros.html
